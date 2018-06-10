@@ -1,0 +1,52 @@
+#!/bin/bash
+
+#   This shell script is a nice and easy thank
+#   you message and DRM check- all in one. It
+#   uses variables for easy changing depending
+#   on the project name and check location :)
+#        By TKO-Cuber on April 4th, 2018
+
+
+  # Variables
+    name=Lightning
+    location=/var/lib/dpkg/info/com.tko-cuber.dockundock.list
+    author=TKO-Cuber
+    method=downloading
+    bad="from an unofficial repository"
+    official_source=https://tko-cuber.github.io/repo
+
+    # Don't modify this
+    list=/var/mobile/Documents/$name
+
+  # Thank you
+echo "                 $name                   "
+echo '========================================='
+echo "      Thank you for $method $name!       "
+echo "               By $author                "
+echo '========================================='
+echo '  '
+
+
+  # DRM
+  if [ ! -a $location ]; then
+      echo ""
+      echo ""
+      echo ":("
+      echo "oof... $name appears to be $bad..."
+      echo "please reinstall $name from the official source..."
+      echo "$official_source"
+      cd /var/mobile/Documents
+      mkdir $author
+      cd $author
+      echo > $name
+      cd ../../..
+  fi
+
+  # If the tweak is from the official repository
+  # Then we go ahead and remove the 'unoffical' notice
+  if [ -a $location ]; then
+      cd $list
+      rm $name
+      cd ..
+      rm $author
+  fi
